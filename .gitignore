@@ -1,0 +1,20 @@
+# Ignore all
+*
+
+# Unignore all with extensions
+!*.*
+
+# but ignore object files and listfiles
+*.o
+*.obj
+*.lst
+# and ignore backup files
+*.bak
+
+# Unignore all dirs
+!*/
+
+### Above combination will ignore all files without extension ###
+
+# Unignore Makefiles
+!Makefile*
