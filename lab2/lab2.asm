@@ -94,12 +94,13 @@ _start:
     add     AX,  [temp] ; AX = a*y*(b-a)/4 + a^2
     sub     AX,  2      ; AX = a*y*(b-a)/4 + a^2 - 2
     mov     [x], AX     ; x =  a*y*(b-a)/4 + a^2 - 2
-    xor     RBX, RBX
+    mov     RBX, 0      ; затираем содержание регистра rbx
     
     ; вывод результата
     write_string AnsMsg, lenAns
     IntToStr    x, OutBuf
-    write_string OutBuf, 4
+    mov rbx, rax            ; помещаем в регистр rbx длину выводимой строки
+    write_string OutBuf, rbx
     
     ; завершение программы
     write_string ExitMsg, lenExit
