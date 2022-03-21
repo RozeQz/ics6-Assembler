@@ -42,7 +42,9 @@ lenExit     equ     $-ExitMsg
 InputMsg    db      "Enter the parameters", 10
 lenInput    equ     $-InputMsg
 AnsMsg      db      "The result is: f = "
-lenAns   equ     $-AnsMsg
+lenAns      equ     $-AnsMsg
+ErrorMsg    db      "Parameter d cannot be 0", 10
+lenError    equ     $-ErrorMsg
 AIs     db      "a = "
 lenAIs  equ     $-AIs
 DIs     db      "d = "
@@ -81,6 +83,10 @@ _start:
     read_string  InBuf, lenIn 
     StrToInt    d
 
+    mov ax, [d]     ; ax = d
+    cmp ax, 0       ; if ax  = 0 {
+    je error        ;   прыгаем на метку error }
+
     write_string XIs, lenXIs
     read_string  InBuf, lenIn 
     StrToInt    x
@@ -92,23 +98,28 @@ _start:
     mov ax, 3       ; ax = 3;
     jmp continue    ; }
     more:           ; else {
-    mov ax, [a]     ; ax = a;
-    imul word [a]   ; ax = a*a;
-    imul word [a]   ; ax = a*a*a;
-    idiv word [d]   ; ax = a*a*a/d;
-    sub  ax, [x]    ; ax = a*a*a/d - x;
+        mov ax, [a]     ; ax = a;
+        imul word [a]   ; ax = a*a;
+        imul word [a]   ; ax = a*a*a;
+        idiv word [d]   ; ax = a*a*a/d;
+        sub  ax, [x]    ; ax = a*a*a/d - x;
     continue:       ; }
-    mov [f], ax     ; f = ax;
+        mov [f], ax     ; f = ax;
     
     ; вывод результата
     write_string AnsMsg, lenAns
     IntToStr    f, OutBuf
     mov rbx, rax            ; помещаем в регистр rbx длину выводимой строки
     write_string OutBuf, rbx
-    
-    ; завершение программы
-    write_string ExitMsg, lenExit
-    read_string InBuf, lenIn
-    mov     rax, 60         ; системная функция 60 (exit)
-    xor     rdi, rdi        ; return code 0    
-    syscall                 ; вызов системной функции
+    jmp exit
+
+    error:
+        write_string ErrorMsg, lenError     ; выводим сообщение об ошибке
+
+    exit:
+        ; завершение программы
+        write_string ExitMsg, lenExit
+        read_string InBuf, lenIn
+        mov     rax, 60         ; системная функция 60 (exit)
+        xor     rdi, rdi        ; return code 0    
+        syscall                 ; вызов системной функции
