@@ -52,8 +52,8 @@ InBuf   resb    10          ; буфер для вводимой строки
 lenIn   equ     $-InBuf     ; длина буфера для вводимой строки
 OutBuf  resb    10
 lenOut  equ     $-OutBuf
-matrix  resd    18
-proizv  resd    1
+matrix  resd    18          ; 3 * 6 = 18 => резервируем 18 элементов для матрицы
+proizv  resd    1           
 
     section .text           ; сегмент кода
     global _start

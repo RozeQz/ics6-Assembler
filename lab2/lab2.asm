@@ -42,7 +42,7 @@ lenExit     equ     $-ExitMsg
 InputMsg    db      "Enter the parameters", 10
 lenInput    equ     $-InputMsg
 AnsMsg      db      "The result is: x = "
-lenAns   equ     $-AnsMsg
+lenAns      equ     $-AnsMsg
 AIs     db      "a = "
 lenAIs  equ     $-AIs
 BIs     db      "b = "
