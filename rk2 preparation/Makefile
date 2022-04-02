@@ -1,4 +1,4 @@
-TARGET = task2
+TARGET = task3
 
 help:
 	@echo Available goals:
