@@ -1,4 +1,4 @@
-TARGET = dz1
+TARGET = dz1_alternative
 
 help:
 	@echo Available goals:
