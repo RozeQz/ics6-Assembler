@@ -18,3 +18,16 @@
 
 # Unignore Makefiles
 !Makefile*
+
+# Ignore all builds
+**/*build*/
+
+# Ignore user files
+**/*.user
+
+# Igonre all pdf and docx files
+*.docx
+*.pdf
+
+# Ignore drawio files
+*.drawio

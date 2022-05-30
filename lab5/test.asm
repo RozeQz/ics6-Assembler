@@ -22,15 +22,10 @@ extern _Z19find_most_freq_symbPi
         cycle:                  ; проходимся по всем символам текста
             lodsb                       ; копируем 1 байт из si в al
             inc dword [rbx + rax * 4]   ; mas[symbol]++
-            loop cycle                  ; переходим к следующей итерации
+            loop cycle   AA               ; переходим к следующей итерации
 
         mov rdi, [rbp - 24]             ; rdi = адрес начала массива целых чисел
         call _Z19find_most_freq_symbPi  ; вызываем процедуру
-
-        pop rbx             ; возвращаем rbx из стека
-        pop rsi             ; возвращаем rbx из стека
-        pop rdi             ; возвращаем rbx из стека
-        add rsp, 8          ; выравнимаем стек по конвенции
 
         ; эпилог
         mov rsp, rbp        ; очищаем локальные переменные
